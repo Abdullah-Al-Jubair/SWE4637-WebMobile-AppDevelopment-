@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text,StyleSheet,View,Image, Button, TouchableOpacity} from 'react-native';
 
-
 const HomeScreen = (props)=>
 {
     return(
@@ -41,8 +40,7 @@ const HomeScreen = (props)=>
             function()
             {
                 props.navigation.navigate("Faculty List");
-            }}  
-              
+            }}             
         />
 
         </View>
@@ -84,9 +82,7 @@ const styles = StyleSheet.create(
         backgroundColor:"black",
         paddingBottom: 8
         
-    },
-
-    
+    }, 
 
 },
 );

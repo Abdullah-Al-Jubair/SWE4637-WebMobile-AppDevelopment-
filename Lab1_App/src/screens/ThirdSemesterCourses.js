@@ -15,8 +15,6 @@ const ThirdSemesterScreen = ()=>
         {id:"CSE 4307", key:"8", name:"Database Management System Lab"},
         {id:"CSE 4303", key:"9", name:"Data Structures Lab",},
 
-         
-
     ];
 
     return(
