@@ -53,7 +53,6 @@ const SignUpScreen = (props) => {
         <Input
           placeholder="Date of Birth"
           leftIcon={<Fontisto name="date" size={18} color="black" />}
-          secureTextEntry={true}
           onChangeText={function (currentInput) {
             setDOB(currentInput);
           }}
@@ -64,7 +63,6 @@ const SignUpScreen = (props) => {
         <Input
           placeholder="Address"
           leftIcon={<FontAwesome5 name="address-card" size={18} color="black" />}
-          secureTextEntry={true}
           onChangeText={function (currentInput) {
             setAddress(currentInput);
           }}
@@ -73,7 +71,6 @@ const SignUpScreen = (props) => {
         <Input
           placeholder="Works at"
           leftIcon={<MaterialCommunityIcons name="office" size={18} color="black" />}
-          secureTextEntry={true}
           onChangeText={function (currentInput) {
             setWorks(currentInput);
           }}

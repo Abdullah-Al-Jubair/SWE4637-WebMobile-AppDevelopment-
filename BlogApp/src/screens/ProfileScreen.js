@@ -38,11 +38,11 @@ const ProfileScreen = (props) => {
               <Text style = {styles.textStyle}>
               <Text style = {{fontWeight: "bold",color: "firebrick"}}>Student ID : </Text>{auth.CurrentUser.sid} {"\n"}
                <Text> {"\n"}</Text>
-              <Text style = {{fontWeight: "bold",color: "firebrick",}}>Date of Birth : </Text>{auth.CurrentUser.DOB} {"\n"}
+              <Text style = {{fontWeight: "bold",color: "firebrick",}}>Born on : </Text>{auth.CurrentUser.DOB} {"\n"}
               <Text> {"\n"}</Text>
               <Text style = {{fontWeight: "bold",color: "firebrick",}}>Address : </Text>{auth.CurrentUser.address} {"\n"}
               <Text> {"\n"}</Text>
-              <Text style = {{fontWeight: "bold",color: "firebrick",}}>Place of Work : </Text>{auth.CurrentUser.worksAt} {"\n"}
+              <Text style = {{fontWeight: "bold",color: "firebrick",}}>Works at : </Text>{auth.CurrentUser.worksAt} {"\n"}
               <Text> {"\n"}</Text>
               </Text>
             <Button
