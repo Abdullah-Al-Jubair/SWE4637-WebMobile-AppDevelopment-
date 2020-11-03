@@ -1,111 +1,108 @@
-import React, {useState,useEffect} from "react";
-import {ScrollView, View, StyleSheet, FlatList,Button,Text} from "react-native";
-import {Card,Input} from "react-native-elements";
-import { Entypo } from "@expo/vector-icons";
-
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, FlatList, ActivityIndicator, ScrollView } from "react-native";
+import { Card } from "react-native-elements";
 import PostCard from "./../components/PostCard";
+import { AuthContext } from "../providers/AuthProvider";
+import { getDataJSON, getCommentsCollection, saveComment } from "../functions/AsyncStorageFunctions";
 import HeaderHome from "./../components/Header";
-import CommentButton from "./../components/CommentButton";
 import DataElementCard from "../components/DataElementCard";
 
-import { AuthContext } from "../providers/AuthProvider";
-
-
-import { storeDataJSON } from "../functions/AsyncStorageFunctions";
-import { getDataJSON } from "../functions/AsyncStorageFunctions";
-
-
-
 const PostScreen = (props) => {
-    const [posts, setPosts] = useState("");
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(false);
-  
-    const [userpost,setuserpost]=useState([]);
-    const [data, setData] = useState("");
+  const postID = props.route.params.postId;
+  const [posts, setPosts] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [input, setInput] = useState([]);
 
-    const loadPosts = async () => {
-        setLoading(true);
-        const response = await getPosts();
-        if (response.ok) {
-          //setPosts(response.data);
-        }
-      };
 
-      useEffect(() => {
-        loadPosts();
-      }, []);
+  const loadSinglePost = async () => {
+    let response = await getDataJSON(JSON.stringify(postID));
+    if (response != null) {
+      return response;
+    }
+  };
 
-  const post =
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
+  const loadAllComments = async () => {
+    setLoading(true);
+    let response = await getCommentsCollection();
+    if (response != null) {
+      setComments(response);
+    }
+    setLoading(false);
+  };
 
-  return (
-    <AuthContext.Consumer>
-      {(auth) => (
-        <View style={styles.viewStyle}>
-          
-        <HeaderHome
-            DrawerFunction={() => {
+  useEffect(() => {
+    loadSinglePost().then((response) => {
+      setPosts(JSON.parse(response));
+    });
+    loadAllComments();
+  }, []);
+
+    return (
+      <AuthContext.Consumer>
+        {(auth) => (
+          <View style={styles.viewStyle}>
+            <HeaderHome
+              DrawerFunction={() => {
                 props.navigation.toggleDrawer();
-            }}
-        />
-
-              <Card>
-            <PostCard author="Abdullah Al Jubair" body="The ending is nearer than you think, and it is already written.
-                     All that we have left to choose is the correct moment to begin."/>
-            </Card>
-            <ScrollView>
-        <Card>
-            <Input
-                
-                multiline
-                placeholder="Write a comment"
-                onChangeText={
-                  function(currentInput){
-                      setPosts(currentInput)
-  
-                  }
-              }
-                leftIcon={<Entypo name="pencil" size={20} color="darkblue" />}
-              />
-              
-
-              <Button title="Post" type="outline" onPress={function () {
-                let userPost={
-                    user: auth.CurrentUser.Email,
-                      post: posts,
-                };
-                setData({posts});
-                auth.CurrentUser.post=posts;
-                storeDataJSON(auth.CurrentUser.Email, auth.CurrentUser);
-                console.log(auth.CurrentUser)
-              }
-
-            } />
-
-            
-        </Card>
-       
-            <FlatList
-              data={posts}
-              renderItem = {function ({ item }){
-                return (
-                  <PostCard
-                    author={auth.CurrentUser.name}
-                    title={item.title}
-                    body={auth.CurrentUser.post}
-                  />
-                );
               }}
             />
 
-        </ScrollView>
-        </View>
-      )}
-    </AuthContext.Consumer>
-  );
-}
+            <Card>
+              <Card.Title>Post</Card.Title>
+              <PostCard
+                author={posts.name}
+                body={posts.post}
+              />
+            </Card>
 
+            <ScrollView>
+            <Card>
+              <Card.Title>Comments</Card.Title>
+              <FlatList
+                data={comments}
+                onRefresh={loadAllComments}
+                refreshing={loading}
+                renderItem={function ({ item }) {
+                  let data = JSON.parse(item);
+                  if (JSON.stringify(data.post) === JSON.stringify(postID)) {
+                    return (
+                      <View>
+                          <PostCard
+                            author={data.commenter}
+                            body={data.comment}
+                          />
+                      </View>
+                    );
+                  }
+                }
+                }
+              />
+            </Card>
+
+            <Card>
+                <DataElementCard
+                  Text="Share your comment!"
+                  currentFunc={setInput}
+                  currentText={input}
+                  pressFunction={async () => {
+                    saveComment(
+                      postID,
+                      posts.name,
+                      auth.CurrentUser.name + Math.floor(Math.random()*2555),
+                      auth.CurrentUser.name,
+                      input)
+                  }}
+                />
+            </Card>
+            </ScrollView>
+          </View>
+        )}
+      </AuthContext.Consumer>
+    );
+  
+
+};
 
 const styles = StyleSheet.create({
   textStyle: {
@@ -115,6 +112,13 @@ const styles = StyleSheet.create({
   viewStyle: {
     flex: 1,
   },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
+  },
 });
 
 export default PostScreen;
+
+

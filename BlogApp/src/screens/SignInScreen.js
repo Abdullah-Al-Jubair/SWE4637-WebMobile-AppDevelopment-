@@ -13,7 +13,7 @@ const SignInScreen = (props) => {
       {(auth) => (
         <View style={styles.viewStyle}>
           <Card>
-            <Card.Title>Welcome to MyBlog!</Card.Title>
+            <Card.Title>Welcome to  BloggerHunt!</Card.Title>
             <Card.Divider />
             <Input
               leftIcon={<FontAwesome name="envelope" size={18} color="black" />}

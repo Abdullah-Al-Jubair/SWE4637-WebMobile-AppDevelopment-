@@ -3,7 +3,7 @@ import { View, StyleSheet, AsyncStorage,Image } from "react-native";
 import { Text, Card, Button, Avatar } from "react-native-elements";
 import { AuthContext } from "../providers/AuthProvider";
 import HeaderHome from "./../components/Header";
-import { removeData } from "../functions/AsyncStorageFunctions";
+import { removeProfile } from "../functions/AsyncStorageFunctions";
 import { FontAwesome } from '@expo/vector-icons'; 
 
 
@@ -51,7 +51,7 @@ const ProfileScreen = (props) => {
             type = "solid"
             onPress={
                 async function(){
-                    await removeData(auth.CurrentUser.email);
+                    await removeProfile(auth.CurrentUser.email);
                     auth.setIsLoggedIn(false);
                 
                     

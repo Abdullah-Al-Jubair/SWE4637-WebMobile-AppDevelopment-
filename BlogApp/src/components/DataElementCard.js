@@ -7,8 +7,9 @@ const DataElementCard = (props) => {
   return (
     <View>
       <Input
+        multiline
         placeholder={props.Text}
-        leftIcon={<Entypo name="pencil" size={24} color="black" />}
+        leftIcon={<Entypo name="pencil" size={20} color="darkblue" />}
         onChangeText={(currentText) => {
           props.currentFunc(currentText);
         }}
