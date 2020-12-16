@@ -29,9 +29,7 @@ const PostCard = (props) => {
         }}
       >
         {props.body}
-      
       </Text>
-      
     </Card>
   );
 };
