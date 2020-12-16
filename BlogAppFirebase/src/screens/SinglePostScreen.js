@@ -87,19 +87,22 @@ const PostScreen = (props) => {
             <ScrollView>
               <Card>
                 <Card.Title>Comments</Card.Title>
+                <FlatList
+                  data={comments}
+                  renderItem={({ item }) => {
+                    return (
+                      <View>
+                        <Card>
+                          <PostCard
+                            author={item.commenter}
+                            body={item.comment}
+                          />
+                        </Card>
+                      </View>
+                    );
+                  }}
+                />
               </Card>
-              <FlatList
-                data={comments}
-                renderItem={({ item }) => {
-                  return (
-                    <View>
-                      <Card>
-                        <PostCard author={item.commenter} body={item.comment} />
-                      </Card>
-                    </View>
-                  );
-                }}
-              />
             </ScrollView>
           </View>
         )}
