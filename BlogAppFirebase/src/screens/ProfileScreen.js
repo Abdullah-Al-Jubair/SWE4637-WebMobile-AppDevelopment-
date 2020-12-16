@@ -68,15 +68,21 @@ const ProfileScreen = (props) => {
           <Card>
             <View>
               <Text>
-                <Text style={{ fontWeight: "bold", color: "firebrick" }}>
+                <Text
+                  style={{ fontWeight: "bold", color: "#7D0541", fontSize: 20 }}
+                >
                   Email: {auth.CurrentUser.email}
                 </Text>
                 {"\n"}
-                <Text style={{ fontWeight: "bold", color: "firebrick" }}>
+                <Text
+                  style={{ fontWeight: "bold", color: "#7D0541", fontSize: 20 }}
+                >
                   Born on : {birth}
                 </Text>
                 {"\n"}
-                <Text style={{ fontWeight: "bold", color: "firebrick" }}>
+                <Text
+                  style={{ fontWeight: "bold", color: "#7D0541", fontSize: 20 }}
+                >
                   Works at : {work}
                 </Text>
               </Text>
