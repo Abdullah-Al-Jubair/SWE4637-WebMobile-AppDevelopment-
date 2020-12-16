@@ -71,7 +71,7 @@ const ProfileScreen = (props) => {
                 <Text
                   style={{ fontWeight: "bold", color: "#7D0541", fontSize: 20 }}
                 >
-                  Email: {auth.CurrentUser.email}
+                  Email : {auth.CurrentUser.email}
                 </Text>
                 {"\n"}
                 <Text
